@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Admin Home";
+}
+
+@Html.AntiForgeryToken()
+
+<p>
+    @Html.ActionLink("Manage Players", "Index", "Player")
+</p>
+<p>
+    @Html.ActionLink("Manage Matches", "Index", "Match")
+</p>

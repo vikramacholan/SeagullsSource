@@ -1,0 +1,114 @@
+﻿@model Seagulls.BowlingScoreCard
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BowlingScoreCard</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Overs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Overs)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Runs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Runs)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Wickets)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Wickets)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Maidens)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Maidens)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Wides)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Wides)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NoBalls)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoBalls)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RunPerOver)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RunPerOver)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StrikeRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StrikeRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastupdatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastupdatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastupdatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastupdatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Match.Opponent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Match.Opponent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player.FirstName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

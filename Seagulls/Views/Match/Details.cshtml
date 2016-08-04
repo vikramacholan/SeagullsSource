@@ -1,0 +1,114 @@
+﻿@model Seagulls.Match
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Match</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MatchDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MatchDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Opponent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Opponent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Result)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Result)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OpponentScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpponentScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CaptainId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CaptainId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WicketKeeperId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WicketKeeperId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ScoreSheetUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScoreSheetUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastupdatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastupdatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastupdatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastupdatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.League.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.League.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Venu.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Venu.Description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

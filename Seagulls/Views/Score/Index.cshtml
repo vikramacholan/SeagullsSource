@@ -1,0 +1,153 @@
+﻿@model Seagulls.Models.ScoreViewModel
+
+@{
+    ViewBag.Title = "Matches";
+}
+
+<h2>Batting Score</h2>
+
+@if (User.Identity.IsAuthenticated) {
+<p>
+    @Html.ActionLink("Create New Batting Record", "Create", "BattingScore", new { matchId = Model.MatchId },null)
+</p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Player")
+        </th>
+        <th>
+            @Html.DisplayName("Runs Scored")
+        </th>
+        <th>
+            @Html.DisplayName("Balls Faced")
+        </th>
+        <th>
+            @Html.DisplayName("How Out")
+        </th>
+        <th>
+            @Html.DisplayName("4s")
+        </th>
+        <th>
+            @Html.DisplayName("6s")
+        </th>        
+        <th>
+            @Html.DisplayName("Strike Rate")
+        </th> 
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.BattingScoreCards)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Player.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RunsScored)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BallsFaced)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HowOut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfFours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfSix)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StrikeRate)
+            </td>
+            <td>
+@if (User.Identity.IsAuthenticated) {
+                @Html.ActionLink("Edit", "Edit", new { playerId = item.PlayerId, matchId = item.MatchId }) 
+                @Html.ActionLink("Details", "Details", new {  playerId=item.PlayerId, matchId =item.MatchId }) 
+                @Html.ActionLink("Delete", "Delete", new {  playerId=item.PlayerId, matchId =item.MatchId })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+<h2>Bowling Score</h2>
+@if (User.Identity.IsAuthenticated) {
+<p>
+    @Html.ActionLink("Create New Bowling Record", "Create", "BowlingScore", new { matchId = Model.MatchId }, null)
+</p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("First Name")
+        </th>
+        <th>
+            @Html.DisplayName("Overs")
+        </th>
+        <th>
+            @Html.DisplayName("Runs")
+        </th>
+        <th>
+            @Html.DisplayName("Wickets")
+        </th>
+        <th>
+            @Html.DisplayName("Maidens")
+        </th>
+        <th>
+            @Html.DisplayName("Wides")
+        </th>
+        <th>
+            @Html.DisplayName("No Balls")
+        </th>
+        <th>
+            @Html.DisplayName("Run PerOver")
+        </th>
+        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.BowlingScoreCards)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Player.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Overs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Runs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Wickets)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Maidens)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Wides)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoBalls)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RunPerOver)
+            </td>
+                    
+            <td>
+@if (User.Identity.IsAuthenticated) {
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) 
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) 
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+<p>
+    @Html.ActionLink("Back To Match Home", "Index","Match")
+</p>

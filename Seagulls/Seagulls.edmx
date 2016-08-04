@@ -1,0 +1,649 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SeagullsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BattingScoreCard">
+          <Key>
+            <PropertyRef Name="MatchId" />
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="MatchId" Type="int" Nullable="false" />
+          <Property Name="PlayerId" Type="int" Nullable="false" />
+          <Property Name="RunsScored" Type="int" Nullable="false" />
+          <Property Name="BallsFaced" Type="int" Nullable="false" />
+          <Property Name="HowOut" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NoOfFours" Type="int" Nullable="false" />
+          <Property Name="NoOfSix" Type="int" Nullable="false" />
+          <Property Name="StrikeRate" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="LastupdatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="LastupdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BowlingScoreCard">
+          <Key>
+            <PropertyRef Name="MatchId" />
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="MatchId" Type="int" Nullable="false" />
+          <Property Name="PlayerId" Type="int" Nullable="false" />
+          <Property Name="Overs" Type="decimal" Precision="3" Scale="1" Nullable="false" />
+          <Property Name="Runs" Type="int" Nullable="false" />
+          <Property Name="Wickets" Type="int" Nullable="false" />
+          <Property Name="Maidens" Type="int" Nullable="false" />
+          <Property Name="Wides" Type="int" Nullable="false" />
+          <Property Name="NoBalls" Type="int" Nullable="false" />
+          <Property Name="RunPerOver" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="StrikeRate" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="LastupdatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="LastupdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="League">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MaxOvers" Type="int" Nullable="false" />
+          <Property Name="TotalMatches" Type="int" Nullable="false" />
+          <Property Name="Cost" Type="int" Nullable="false" />
+          <Property Name="Notes" Type="varchar" MaxLength="300" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="PriceMoney" Type="int" />
+        </EntityType>
+        <EntityType Name="Match">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeagueId" Type="int" Nullable="false" />
+          <Property Name="MatchDate" Type="date" Nullable="false" />
+          <Property Name="Opponent" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="VenuId" Type="int" Nullable="false" />
+          <Property Name="Result" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TotalScore" Type="int" Nullable="false" />
+          <Property Name="OpponentScore" Type="int" Nullable="false" />
+          <Property Name="CaptainId" Type="int" Nullable="false" />
+          <Property Name="WicketKeeperId" Type="int" Nullable="false" />
+          <Property Name="ScoreSheetUrl" Type="varchar" MaxLength="1000" />
+          <Property Name="LastupdatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="LastupdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="SkillId" Type="int" Nullable="false" />
+          <Property Name="ImageUrl" Type="varchar" MaxLength="500" />
+          <Property Name="Description" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Venu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_BattingScoreCard_Match">
+          <End Role="Match" Type="Self.Match" Multiplicity="1" />
+          <End Role="BattingScoreCard" Type="Self.BattingScoreCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Match">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BattingScoreCard">
+              <PropertyRef Name="MatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BattingScoreCard_Player">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="BattingScoreCard" Type="Self.BattingScoreCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BattingScoreCard">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BowlingScoreCard_Match">
+          <End Role="Match" Type="Self.Match" Multiplicity="1" />
+          <End Role="BowlingScoreCard" Type="Self.BowlingScoreCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Match">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BowlingScoreCard">
+              <PropertyRef Name="MatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BowlingScoreCard_Player">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="BowlingScoreCard" Type="Self.BowlingScoreCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BowlingScoreCard">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_League">
+          <End Role="League" Type="Self.League" Multiplicity="1" />
+          <End Role="Match" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="League">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="LeagueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_Player">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="Match" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="CaptainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_Player1">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="Match" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="WicketKeeperId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_Venu">
+          <End Role="Venu" Type="Self.Venu" Multiplicity="1" />
+          <End Role="Match" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="VenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Player_Skill">
+          <End Role="Skill" Type="Self.Skill" Multiplicity="1" />
+          <End Role="Player" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SeagullsModelStoreContainer">
+          <EntitySet Name="BattingScoreCard" EntityType="Self.BattingScoreCard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BowlingScoreCard" EntityType="Self.BowlingScoreCard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="League" EntityType="Self.League" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Match" EntityType="Self.Match" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Player" EntityType="Self.Player" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skill" EntityType="Self.Skill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Venu" EntityType="Self.Venu" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BattingScoreCard_Match" Association="Self.FK_BattingScoreCard_Match">
+            <End Role="Match" EntitySet="Match" />
+            <End Role="BattingScoreCard" EntitySet="BattingScoreCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BattingScoreCard_Player" Association="Self.FK_BattingScoreCard_Player">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="BattingScoreCard" EntitySet="BattingScoreCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BowlingScoreCard_Match" Association="Self.FK_BowlingScoreCard_Match">
+            <End Role="Match" EntitySet="Match" />
+            <End Role="BowlingScoreCard" EntitySet="BowlingScoreCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BowlingScoreCard_Player" Association="Self.FK_BowlingScoreCard_Player">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="BowlingScoreCard" EntitySet="BowlingScoreCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_League" Association="Self.FK_Match_League">
+            <End Role="League" EntitySet="League" />
+            <End Role="Match" EntitySet="Match" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_Player" Association="Self.FK_Match_Player">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Match" EntitySet="Match" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_Player1" Association="Self.FK_Match_Player1">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Match" EntitySet="Match" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_Venu" Association="Self.FK_Match_Venu">
+            <End Role="Venu" EntitySet="Venu" />
+            <End Role="Match" EntitySet="Match" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Player_Skill" Association="Self.FK_Player_Skill">
+            <End Role="Skill" EntitySet="Skill" />
+            <End Role="Player" EntitySet="Player" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SeagullsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BattingScoreCard">
+          <Key>
+            <PropertyRef Name="MatchId" />
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="MatchId" Type="Int32" Nullable="false" />
+          <Property Name="PlayerId" Type="Int32" Nullable="false" />
+          <Property Name="RunsScored" Type="Int32" Nullable="false" />
+          <Property Name="BallsFaced" Type="Int32" Nullable="false" />
+          <Property Name="HowOut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NoOfFours" Type="Int32" Nullable="false" />
+          <Property Name="NoOfSix" Type="Int32" Nullable="false" />
+          <Property Name="StrikeRate" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Match" Relationship="Self.FK_BattingScoreCard_Match" FromRole="BattingScoreCard" ToRole="Match" />
+          <NavigationProperty Name="Player" Relationship="Self.FK_BattingScoreCard_Player" FromRole="BattingScoreCard" ToRole="Player" />
+          <Property Name="LastupdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastupdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="BowlingScoreCard">
+          <Key>
+            <PropertyRef Name="MatchId" />
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="MatchId" Type="Int32" Nullable="false" />
+          <Property Name="PlayerId" Type="Int32" Nullable="false" />
+          <Property Name="Overs" Type="Decimal" Precision="3" Scale="1" Nullable="false" />
+          <Property Name="Runs" Type="Int32" Nullable="false" />
+          <Property Name="Wickets" Type="Int32" Nullable="false" />
+          <Property Name="Maidens" Type="Int32" Nullable="false" />
+          <Property Name="Wides" Type="Int32" Nullable="false" />
+          <Property Name="NoBalls" Type="Int32" Nullable="false" />
+          <Property Name="RunPerOver" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="StrikeRate" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Match" Relationship="Self.FK_BowlingScoreCard_Match" FromRole="BowlingScoreCard" ToRole="Match" />
+          <NavigationProperty Name="Player" Relationship="Self.FK_BowlingScoreCard_Player" FromRole="BowlingScoreCard" ToRole="Player" />
+          <Property Name="LastupdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastupdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="League">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaxOvers" Type="Int32" Nullable="false" />
+          <Property Name="TotalMatches" Type="Int32" Nullable="false" />
+          <Property Name="Cost" Type="Int32" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="PriceMoney" Type="Int32" />
+          <NavigationProperty Name="Matches" Relationship="Self.FK_Match_League" FromRole="League" ToRole="Match" />
+        </EntityType>
+        <EntityType Name="Match">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeagueId" Type="Int32" Nullable="false" />
+          <Property Name="MatchDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Opponent" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VenuId" Type="Int32" Nullable="false" />
+          <Property Name="Result" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TotalScore" Type="Int32" Nullable="false" />
+          <Property Name="OpponentScore" Type="Int32" Nullable="false" />
+          <Property Name="CaptainId" Type="Int32" Nullable="false" />
+          <Property Name="WicketKeeperId" Type="Int32" Nullable="false" />
+          <Property Name="ScoreSheetUrl" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BattingScoreCards" Relationship="Self.FK_BattingScoreCard_Match" FromRole="Match" ToRole="BattingScoreCard" />
+          <NavigationProperty Name="BowlingScoreCards" Relationship="Self.FK_BowlingScoreCard_Match" FromRole="Match" ToRole="BowlingScoreCard" />
+          <NavigationProperty Name="League" Relationship="Self.FK_Match_League" FromRole="Match" ToRole="League" />
+          <NavigationProperty Name="Venu" Relationship="Self.FK_Match_Venu" FromRole="Match" ToRole="Venu" />
+          <Property Name="LastupdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastupdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Player" Relationship="SeagullsModel.FK_Match_Player" FromRole="Match" ToRole="Player" />
+          <NavigationProperty Name="Player1" Relationship="SeagullsModel.FK_Match_Player1" FromRole="Match" ToRole="Player" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SkillId" Type="Int32" Nullable="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BattingScoreCards" Relationship="Self.FK_BattingScoreCard_Player" FromRole="Player" ToRole="BattingScoreCard" />
+          <NavigationProperty Name="BowlingScoreCards" Relationship="Self.FK_BowlingScoreCard_Player" FromRole="Player" ToRole="BowlingScoreCard" />
+          <NavigationProperty Name="Skill" Relationship="Self.FK_Player_Skill" FromRole="Player" ToRole="Skill" />
+          <NavigationProperty Name="Matches" Relationship="SeagullsModel.FK_Match_Player" FromRole="Player" ToRole="Match" />
+          <NavigationProperty Name="Matches1" Relationship="SeagullsModel.FK_Match_Player1" FromRole="Player" ToRole="Match" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Players" Relationship="Self.FK_Player_Skill" FromRole="Skill" ToRole="Player" />
+        </EntityType>
+        <EntityType Name="Venu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Matches" Relationship="Self.FK_Match_Venu" FromRole="Venu" ToRole="Match" />
+        </EntityType>
+        <Association Name="FK_BattingScoreCard_Match">
+          <End Role="Match" Type="Self.Match" Multiplicity="1" />
+          <End Role="BattingScoreCard" Type="Self.BattingScoreCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Match">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BattingScoreCard">
+              <PropertyRef Name="MatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BattingScoreCard_Player">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="BattingScoreCard" Type="Self.BattingScoreCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BattingScoreCard">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BowlingScoreCard_Match">
+          <End Role="Match" Type="Self.Match" Multiplicity="1" />
+          <End Role="BowlingScoreCard" Type="Self.BowlingScoreCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Match">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BowlingScoreCard">
+              <PropertyRef Name="MatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BowlingScoreCard_Player">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="BowlingScoreCard" Type="Self.BowlingScoreCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BowlingScoreCard">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_League">
+          <End Role="League" Type="Self.League" Multiplicity="1" />
+          <End Role="Match" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="League">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="LeagueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_Venu">
+          <End Role="Venu" Type="Self.Venu" Multiplicity="1" />
+          <End Role="Match" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="VenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Player_Skill">
+          <End Role="Skill" Type="Self.Skill" Multiplicity="1" />
+          <End Role="Player" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SeagullsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BattingScoreCards" EntityType="Self.BattingScoreCard" />
+          <EntitySet Name="BowlingScoreCards" EntityType="Self.BowlingScoreCard" />
+          <EntitySet Name="Leagues" EntityType="Self.League" />
+          <EntitySet Name="Matches" EntityType="Self.Match" />
+          <EntitySet Name="Players" EntityType="Self.Player" />
+          <EntitySet Name="Skills" EntityType="Self.Skill" />
+          <EntitySet Name="Venus" EntityType="Self.Venu" />
+          <AssociationSet Name="FK_BattingScoreCard_Match" Association="Self.FK_BattingScoreCard_Match">
+            <End Role="Match" EntitySet="Matches" />
+            <End Role="BattingScoreCard" EntitySet="BattingScoreCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BattingScoreCard_Player" Association="Self.FK_BattingScoreCard_Player">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="BattingScoreCard" EntitySet="BattingScoreCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BowlingScoreCard_Match" Association="Self.FK_BowlingScoreCard_Match">
+            <End Role="Match" EntitySet="Matches" />
+            <End Role="BowlingScoreCard" EntitySet="BowlingScoreCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BowlingScoreCard_Player" Association="Self.FK_BowlingScoreCard_Player">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="BowlingScoreCard" EntitySet="BowlingScoreCards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_League" Association="Self.FK_Match_League">
+            <End Role="League" EntitySet="Leagues" />
+            <End Role="Match" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_Venu" Association="Self.FK_Match_Venu">
+            <End Role="Venu" EntitySet="Venus" />
+            <End Role="Match" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Player_Skill" Association="Self.FK_Player_Skill">
+            <End Role="Skill" EntitySet="Skills" />
+            <End Role="Player" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_Player" Association="SeagullsModel.FK_Match_Player">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="Match" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_Player1" Association="SeagullsModel.FK_Match_Player1">
+            <End Role="Player" EntitySet="Players" />
+            <End Role="Match" EntitySet="Matches" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Match_Player">
+          <End Type="SeagullsModel.Player" Role="Player" Multiplicity="1" />
+          <End Type="SeagullsModel.Match" Role="Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="CaptainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_Player1">
+          <End Type="SeagullsModel.Player" Role="Player" Multiplicity="1" />
+          <End Type="SeagullsModel.Match" Role="Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="WicketKeeperId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SeagullsModelStoreContainer" CdmEntityContainer="SeagullsEntities">
+          <EntitySetMapping Name="BattingScoreCards">
+            <EntityTypeMapping TypeName="SeagullsModel.BattingScoreCard">
+              <MappingFragment StoreEntitySet="BattingScoreCard">
+                <ScalarProperty Name="LastupdatedDate" ColumnName="LastupdatedDate" />
+                <ScalarProperty Name="LastupdatedBy" ColumnName="LastupdatedBy" />
+                <ScalarProperty Name="MatchId" ColumnName="MatchId" />
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="RunsScored" ColumnName="RunsScored" />
+                <ScalarProperty Name="BallsFaced" ColumnName="BallsFaced" />
+                <ScalarProperty Name="HowOut" ColumnName="HowOut" />
+                <ScalarProperty Name="NoOfFours" ColumnName="NoOfFours" />
+                <ScalarProperty Name="NoOfSix" ColumnName="NoOfSix" />
+                <ScalarProperty Name="StrikeRate" ColumnName="StrikeRate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BowlingScoreCards">
+            <EntityTypeMapping TypeName="SeagullsModel.BowlingScoreCard">
+              <MappingFragment StoreEntitySet="BowlingScoreCard">
+                <ScalarProperty Name="LastupdatedDate" ColumnName="LastupdatedDate" />
+                <ScalarProperty Name="LastupdatedBy" ColumnName="LastupdatedBy" />
+                <ScalarProperty Name="MatchId" ColumnName="MatchId" />
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="Overs" ColumnName="Overs" />
+                <ScalarProperty Name="Runs" ColumnName="Runs" />
+                <ScalarProperty Name="Wickets" ColumnName="Wickets" />
+                <ScalarProperty Name="Maidens" ColumnName="Maidens" />
+                <ScalarProperty Name="Wides" ColumnName="Wides" />
+                <ScalarProperty Name="NoBalls" ColumnName="NoBalls" />
+                <ScalarProperty Name="RunPerOver" ColumnName="RunPerOver" />
+                <ScalarProperty Name="StrikeRate" ColumnName="StrikeRate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leagues">
+            <EntityTypeMapping TypeName="SeagullsModel.League">
+              <MappingFragment StoreEntitySet="League">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MaxOvers" ColumnName="MaxOvers" />
+                <ScalarProperty Name="TotalMatches" ColumnName="TotalMatches" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="PriceMoney" ColumnName="PriceMoney" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matches">
+            <EntityTypeMapping TypeName="SeagullsModel.Match">
+              <MappingFragment StoreEntitySet="Match">
+                <ScalarProperty Name="LastupdatedDate" ColumnName="LastupdatedDate" />
+                <ScalarProperty Name="LastupdatedBy" ColumnName="LastupdatedBy" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+                <ScalarProperty Name="MatchDate" ColumnName="MatchDate" />
+                <ScalarProperty Name="Opponent" ColumnName="Opponent" />
+                <ScalarProperty Name="VenuId" ColumnName="VenuId" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="TotalScore" ColumnName="TotalScore" />
+                <ScalarProperty Name="OpponentScore" ColumnName="OpponentScore" />
+                <ScalarProperty Name="CaptainId" ColumnName="CaptainId" />
+                <ScalarProperty Name="WicketKeeperId" ColumnName="WicketKeeperId" />
+                <ScalarProperty Name="ScoreSheetUrl" ColumnName="ScoreSheetUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="SeagullsModel.Player">
+              <MappingFragment StoreEntitySet="Player">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skills">
+            <EntityTypeMapping TypeName="SeagullsModel.Skill">
+              <MappingFragment StoreEntitySet="Skill">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Venus">
+            <EntityTypeMapping TypeName="SeagullsModel.Venu">
+              <MappingFragment StoreEntitySet="Venu">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

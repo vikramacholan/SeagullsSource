@@ -1,0 +1,135 @@
+﻿@model Seagulls.Models.StatsViewModel
+@{
+    ViewBag.Title = "Player Stats";
+}
+
+<h2>Batting Stats</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayName("Name")</th>
+            <th>@Html.DisplayName("Innings")</th>
+            <th>@Html.DisplayName("Runs")</th>
+            <th>@Html.DisplayName("Balls")</th>
+            <th>@Html.DisplayName("Average")</th>
+            <th>@Html.DisplayName("Strike Rate")</th>
+            <th>@Html.DisplayName("Top Score")</th>
+            <th>@Html.DisplayName("25s")</th>
+            <th>@Html.DisplayName("50s")</th>
+            <th>@Html.DisplayName("100s")</th>
+            <th>@Html.DisplayName("4s")</th>
+            <th>@Html.DisplayName("6s")</th>
+            <th>@Html.DisplayName("Not Outs")</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.BattingStats)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InningsCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Runs)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Balls)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Average)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StrikeRate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Highest)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quaters)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fifties)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hundreds)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fours)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sixes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NotOuts)
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+
+<h2>Bowling Stats</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayName("Name")</th>
+            <th>@Html.DisplayName("Overs")</th>
+            <th>@Html.DisplayName("Runs")</th>
+            <th>@Html.DisplayName("Wickets")</th>
+            <th>@Html.DisplayName("Economy")</th>
+            <th>@Html.DisplayName("Wides")</th>
+            <th>@Html.DisplayName("No Balls")</th>
+            <th>@Html.DisplayName("3W")</th>
+            <th>@Html.DisplayName("5W")</th>
+            <th>@Html.DisplayName("Best")</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.BowlingStats)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Overs).ToString().Split('.')[0].@Html.DisplayFor(modelItem => item.Balls).ToString().Split('.')[0]
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Runs)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Wickets)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RunsPerOver)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Wides)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoBalls)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThreeWickets)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FiveWickets)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BestWickets)/@Html.DisplayFor(modelItem => item.BestRuns)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
