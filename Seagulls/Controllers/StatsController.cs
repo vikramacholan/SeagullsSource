@@ -18,6 +18,7 @@ namespace Seagulls.Controllers
                     select new BowlingStatsViewModel
                     {
                         Id = p.Key,
+                        InningsCount = p.Count(),
                         Name = (from pl in db.Players
                                 where pl.Id == p.Key
                                 select pl).FirstOrDefault().FirstName,

@@ -82,6 +82,7 @@
     <thead>
         <tr>
             <th>@Html.DisplayName("Name")</th>
+            <th>@Html.DisplayName("Innings")</th>
             <th>@Html.DisplayName("Overs")</th>
             <th>@Html.DisplayName("Runs")</th>
             <th>@Html.DisplayName("Wickets")</th>
@@ -99,6 +100,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InningsCount)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Overs).ToString().Split('.')[0].@Html.DisplayFor(modelItem => item.Balls).ToString().Split('.')[0]

@@ -9,6 +9,8 @@ namespace Seagulls.Models
     {
         public int Id { get; set; }
 
+        public int InningsCount { get; set; }
+
         public string Name { get; set; }
 
         public decimal Overs { get; set; }

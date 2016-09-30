@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Player Chart";
+}
+
+<h2>Player Chart</h2>
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.Label("Select Player", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PlayerId", String.Empty)
+                @*@Html.ValidationMessageFor(model => model.CaptainId)*@
+            </div>
+        </div>
+    </div>
+}
+<div id="bat_chart_div"></div>
+<div id="bowl_chart_div"></div>
+
+
+@section Scripts {
+@Scripts.Render("~/bundles/app")
+
+    <script type="text/javascript">
+        var url = '@Url.Action("LoadChartById", "Chart")';
+    </script>
+}
+
+

@@ -23,6 +23,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Match")</li>
                     <li>@Html.ActionLink("Stats", "Index", "Stats")</li>
+                    <li>@Html.ActionLink("Chart", "Index", "Chart")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
@@ -37,6 +38,7 @@
             <p>&copy; @DateTime.Now.Year - Seagulls Cricket Club</p>
         </footer>
     </div>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
